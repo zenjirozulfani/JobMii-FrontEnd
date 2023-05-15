@@ -17160,7 +17160,7 @@ a.close.disabled {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1040;
+  z-index: 1;
   width: 100vw;
   height: 100vh;
   background-color: #000;
@@ -17225,8 +17225,8 @@ a.close.disabled {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
-    margin: 30px auto;
+    max-width: 400px;
+    margin: 100px auto;
   }
 
   .modal-dialog-scrollable {

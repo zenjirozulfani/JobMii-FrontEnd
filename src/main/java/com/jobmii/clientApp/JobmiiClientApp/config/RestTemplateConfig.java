@@ -17,9 +17,10 @@ public class RestTemplateConfig {
 		// return new RestTemplate();
 		RestTemplate restTemplate = new RestTemplate();
 
-		List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+		List<ClientHttpRequestInterceptor> interceptors =
+		restTemplate.getInterceptors();
 		if (CollectionUtils.isEmpty(interceptors)) {
-			interceptors = new ArrayList<>();
+		interceptors = new ArrayList<>();
 		}
 		interceptors.add(new RequestInterceptor());
 		restTemplate.setInterceptors(interceptors);

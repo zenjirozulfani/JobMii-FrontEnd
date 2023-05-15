@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/materialdesignicons.min.css}">
+	<link rel="stylesheet" th:href="@{/css/vendor.bundle.base.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+	<!-- <section layout:fragment="css"></section> -->
+</head>
+
+<body>
+	<div class="container-scroller">
+		<!-- sidebar -->
+		<nav class="sidebar sidebar-offcanvas" id="sidebar">
+			<div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+				<div class="sidebar-brand brand-logo text-white">
+					<h3>JobMii</h3>
+				</div>
+				<div class="sidebar-brand brand-logo-mini text-white">
+					<h3>JM</h3>
+				</div>
+
+			</div>
+			<ul class="nav">
+				<li class="nav-item profile">
+					<div class="profile-desc">
+						<div class="profile-pic">
+							<div class="count-indicator">
+								<img class="img-xs rounded-circle "
+									src="https://www.its.ac.id/aktuaria/wp-content/uploads/sites/100/2018/03/user.png"
+									alt="">
+							</div>
+							<div class="profile-name">
+								<h5 class="text-uppercase font-weight-normal" sec:authentication="name"></h5>
+								<!-- <span></span> -->
+							</div>
+						</div>
+
+					</div>
+				</li>
+				<li class="nav-item nav-category">
+					<span class="nav-link">Navigation</span>
+				</li>
+				<li class="nav-item menu-items">
+					<a class="nav-link" th:href="@{/dashboard}">
+						<span class="menu-icon">
+							<i class="mdi mdi-speedometer"></i>
+						</span>
+						<span class="menu-title">Dashboard</span>
+					</a>
+				</li>
+				<li class="nav-item menu-items">
+					<a class="nav-link" data-toggle="collapse" href="#employee" aria-expanded="false"
+						aria-controls="employee">
+						<span class="menu-icon">
+							<i class="mdi mdi-account-multiple"></i>
+						</span>
+						<span class="menu-title">Employee</span>
+						<i class="menu-arrow"></i>
+					</a>
+					<div class="collapse" id="employee">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"> <a class="nav-link" th:href="@{/employee}">
+									<span class="menu-icon">
+										<i class="mdi mdi-format-list-bulleted-type"></i>
+									</span>
+									List Employee
+								</a></li>
+							<li class="nav-item"> <a class="nav-link" th:href="@{/employee/create}">
+									<span class="menu-icon">
+										<i class="mdi mdi-account-plus"></i>
+									</span>
+									Add New Employee
+								</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="">
+						<span class="menu-icon">
+							<i class="mdi mdi-home-modern text-secondary"></i>
+						</span>
+						<span class="menu-title">Mitra</span>
+					</a>
+				</li>
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="">
+						<span class="menu-icon">
+							<i class="mdi mdi-account-star"></i>
+						</span>
+						<span class="menu-title">HR</span>
+					</a>
+				</li>
+				<hr>
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="">
+						<span class="menu-icon">
+							<i class="mdi mdi-file-check"></i>
+						</span>
+						<span class="menu-title">Mapping Employee</span>
+					</a>
+				</li>
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="">
+						<span class="menu-icon">
+							<i class="mdi mdi-table-edit"></i>
+						</span>
+						<span class="menu-title">Vacancy</span>
+					</a>
+				</li>
+				<li class="nav-item menu-items">
+					<a class="nav-link" data-toggle="collapse" href="#applyEmployee" aria-expanded="false"
+						aria-controls="applyEmployee">
+						<span class="menu-icon">
+							<i class="mdi mdi-format-list-bulleted-type text-success"></i>
+						</span>
+						<span class="menu-title">Apply Employee</span>
+						<i class="menu-arrow"></i>
+					</a>
+					<div class="collapse" id="applyEmployee">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"> <a class="nav-link" href="">
+									<span class="menu-icon">
+										<i class="mdi mdi-format-list-bulleted-type text-success"></i>
+									</span>
+									List
+								</a></li>
+							<li class="nav-item"> <a class="nav-link" href="">
+									<span class="menu-icon">
+										<i class="mdi mdi-history text-success"></i>
+									</span>
+									History
+								</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="">
+						<span class="menu-icon">
+							<i class="mdi mdi-laptop-mac"></i>
+						</span>
+						<span class="menu-title">Job Position</span>
+					</a>
+				</li>
+				<hr>
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="" data-toggle="modal" data-target="#logoutModal">
+						<span class="menu-icon">
+							<i class="mdi mdi-logout text-danger"></i>
+						</span>
+						<span class="menu-title">Log out</span>
+					</a>
+				</li>
+				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="logoutModalLabel">Logout</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p>Are you sure you want to log out?</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<form th:action="@{/logout}" th:method="POST">
+									<button type="submit" class="btn btn-danger">Log Out</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ul>
+		</nav>
+
+		<div class="container-fluid page-body-wrapper">
+			<!-- navbar -->
+			<nav class="navbar p-0 fixed-top d-flex flex-row">
+				<div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+					<button class="navbar-toggler navbar-toggler align-self-center" type="button"
+						data-toggle="minimize">
+						<span class="mdi mdi-menu"></span>
+					</button>
+					<ul class="navbar-nav navbar-nav-right">
+						<li class="nav-item dropdown">
+							<a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+								<div class="navbar-profile">
+									<img class="img-xs rounded-circle"
+										src="https://www.its.ac.id/aktuaria/wp-content/uploads/sites/100/2018/03/user.png"
+										alt="img user">
+									<p class="mb-0 d-none d-sm-block navbar-profile-name text-uppercase"
+										sec:authentication="name"></p>
+								</div>
+							</a>
+						</li>
+					</ul>
+					<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+						data-toggle="offcanvas">
+						<span class="mdi mdi-format-line-spacing"></span>
+					</button>
+				</div>
+			</nav>
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<div layout:fragment="content">
+
+					</div>
+				</div>
+				<!-- footer -->
+				<footer class="footer">
+					<div class="d-sm-flex justify-content-center justify-content-sm-between">
+						<span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+							JobMii 2023</span>
+					</div>
+				</footer>
+			</div>
+		</div>
+		<section layout:fragment="modal"></section>
+	</div>
+	<script th:src="@{/js/vendor.bundle.base.js}"></script>
+	<script th:src="@{/js/Chart.min.js}"></script>
+	<script th:src="@{/js/dashboard.js}"></script>
+	<script th:src="@{/js/off-canvas.js}"></script>
+	<script th:src="@{/js/hoverable-collapse.js}"></script>
+	<script th:src="@{/js/misc.js}"></script>
+	<script th:src="@{/js/settings.js}"></script>
+	<section layout:fragment="js"></section>
+</body>
+
+</html>
