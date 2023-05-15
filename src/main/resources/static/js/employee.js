@@ -56,7 +56,7 @@ $(document).ready(function () {
 				"data": null,
 				render: function (data, row, type, meta) {
 					return `
-                    <button type="button" class="btn btn-danger px-4 mr-3"> Delete <i class="bi bi-trash"> </i></button > 
+                    <button type="button" class="btn btn-primary px-4 mr-3"> Detail <i class="bi bi-trash"> </i></button > 
                     `;
 				}
 			}

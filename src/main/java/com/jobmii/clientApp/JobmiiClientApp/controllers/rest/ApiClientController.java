@@ -12,21 +12,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jobmii.clientApp.JobmiiClientApp.models.Client;
 import com.jobmii.clientApp.JobmiiClientApp.models.Employee;
 import com.jobmii.clientApp.JobmiiClientApp.models.User;
+import com.jobmii.clientApp.JobmiiClientApp.services.ClientService;
 import com.jobmii.clientApp.JobmiiClientApp.services.EmployeeService;
 
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/employee")
+@RequestMapping("/api/mitra")
 @AllArgsConstructor
-public class ApiEmployeeController {
+public class ApiClientController {
+	private ClientService clientService;
 	private EmployeeService employeeService;
 
 	@GetMapping
-	public List<Employee> getAll() {
-		return employeeService.getAll();
+	public List<Client> getAll() {
+		return clientService.getAll();
 	}
 
 	@GetMapping("/username/{username}")

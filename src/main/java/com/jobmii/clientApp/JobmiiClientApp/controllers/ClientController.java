@@ -13,42 +13,37 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jobmii.clientApp.JobmiiClientApp.models.Client;
 import com.jobmii.clientApp.JobmiiClientApp.models.Employee;
+import com.jobmii.clientApp.JobmiiClientApp.models.dto.request.ClientRequest;
 import com.jobmii.clientApp.JobmiiClientApp.models.dto.request.EmployeeRequest;
+import com.jobmii.clientApp.JobmiiClientApp.services.ClientService;
 import com.jobmii.clientApp.JobmiiClientApp.services.EmployeeService;
 
 import lombok.AllArgsConstructor;
 
 @Controller
-// @RestController
-// @RequestMapping("/employee")
 @AllArgsConstructor
-// @PreAuthorize("hasRole('HR')")
-public class EmployeeController {
-	private EmployeeService employeeService;
+@RequestMapping("/mitra")
+public class ClientController {
+	private ClientService clientService;
 
 	// @PreAuthorize("hasAuthority('READ_HR')")
-	@GetMapping("/employee")
-	public String home(Model model) {
-		List<Employee> employees = employeeService.getAll();
-		model.addAttribute("employees", employees);
+	@GetMapping
+	public String home(ClientRequest clientRequest, Model model) {
+		List<Client> clients = clientService.getAll();
+		model.addAttribute("clients", clients);
 
 		// model.addAttribute("upRegion", regionService.getById(id));
-		// Employee newEmployee = new Employee();
-		// model.addAttribute("newEmployee", newEmployee);
+		Client newClient = new Client();
+		model.addAttribute("newClient", newClient);
 
-		return "employee/index";
+		return "mitra/index";
 	}
 
-	@GetMapping("/employee/create")
-	public String createPage(EmployeeRequest employeeRequest) {
-		return "employee/create";
+	@PostMapping
+	public String create(ClientRequest clientRequest) {
+		clientService.create(clientRequest);
+		return "redirect:/mitra";
 	}
-
-	@PostMapping("/register-employee")
-	public String register(EmployeeRequest employeeRequest) {
-		employeeService.register(employeeRequest);
-		return "redirect:employee/create";
-	}
-
 }
