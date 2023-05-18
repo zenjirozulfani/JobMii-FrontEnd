@@ -147,12 +147,14 @@
 									<!-- <p th:text="${vacancy}"></p> -->
 									<h5>Employee Accepted</h5>
 								</div>
-								<a th:href="@{/vacancy/export/{id} (id=${vacancy.id})}"
-									class="btn btn-outline-warning float-right mb-2">Download Data
-									(.xls)</a>
+								<button onclick="$('#table-data').tblToExcel();"
+									class="btn btn-outline-warning float-right mb-2">Download
+									Data
+									(.xls)</button>
 							</div>
 							<!-- <p th:text="${link}"></p> -->
-							<table class="table table-bordered table-dark text-white table-responsive-sm mt-2">
+							<table id="table-data"
+								class="table table-bordered table-dark text-white table-responsive-sm mt-2">
 								<tbody>
 									<tr>
 										<th> No </th>
@@ -225,9 +227,26 @@
 	</section>
 	<section layout:fragment="js">
 		<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-		<script>
-			let table = new DataTable('#apply-table');
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 2
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 3
+			crossorigin="anonymous">
+			4
 		</script>
+		5
+		<script th:src="@{/js/jquery.tableToExcel.js}"></script>
+		<!-- <script>
+			$('#table-data').tblToExcel({
+
+				complete: function () {
+
+					// do something
+
+				}
+
+			});
+		</script> -->
+
 		<!-- <script th:src="@{/js/position-vacancy.js}"></script> -->
 	</section>
 </body>
