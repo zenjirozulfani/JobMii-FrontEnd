@@ -13,4 +13,5 @@ public class Client {
 	private String email;
 	private String phone;
 	private String description;
+	private User user;
 }

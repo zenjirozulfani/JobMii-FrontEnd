@@ -28,7 +28,7 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 
 	// @PreAuthorize("hasAuthority('READ_HR')")
-	@GetMapping("/employee")
+	@GetMapping("/list-employee")
 	public String home(Model model) {
 		List<Employee> employees = employeeService.getAll();
 		model.addAttribute("employees", employees);
@@ -43,6 +43,17 @@ public class EmployeeController {
 	@GetMapping("/employee/create")
 	public String createPage(EmployeeRequest employeeRequest) {
 		return "employee/create";
+	}
+
+	@GetMapping("/list-hr")
+	public String listHr(EmployeeRequest employeeRequest) {
+		return "hr/index";
+	}
+
+	@PostMapping("/register-hr")
+	public String registerHr(EmployeeRequest employeeRequest) {
+		employeeService.registerHr(employeeRequest);
+		return "redirect:/list-hr";
 	}
 
 	@PostMapping("/register-employee")

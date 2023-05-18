@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vacancy | JobMii</title>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<div class="page-header">
+			<h3 class="page-title"> Vacancy </h3>
+		</div>
+		<div class="row">
+
+			<div class="col-lg-4 mt-3" th:each="vacancies: ${vacancies}">
+				<div class="card ">
+					<!-- <p th:text="${positionVacancy}"></p> -->
+					<div class="card-body">
+						<h4 class="card-title" th:text="${vacancies.title}">Card title</h4>
+						<p class="card-text text-muted" th:text="${vacancies.mitra.name}"></p>
+						<p class="card-text text-muted" th:text="${vacancies.address}"></p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<p>Start Date : <span th:text="${vacancies.start_date}"></span></p>
+						</li>
+						<li class="list-group-item">
+							<p>End Date : <span th:text="${vacancies.end_date}"></span></p>
+						</li>
+					</ul>
+					<div class="card-body">
+						<a th:href="@{/vacancy/{id} (id=${vacancies.id})}" class="card-link btn btn-primary">Detail
+							Vacancy</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+</body>
+
+</html>

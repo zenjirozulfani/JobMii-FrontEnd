@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Detail Vacancy | JobMii</title>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<div class="page-header">
+			<h3 class="page-title"> Detail Vacancy</h3>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/vacancy}">Vacancy</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Detail Vacancy</li>
+				</ol>
+			</nav>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<!-- <p th:text="${vacancy}"></p> <br> -->
+				<!-- <p th:text="${positionVacancy}"></p> -->
+				<!-- <p th:text="${jobEmployee}"></p> -->
+				<table class="table table-borderless text-white" style="width: 20%;">
+					<h4 th:text="${vacancy.title}"></h4>
+					<button class="btn btn-rounded btn-success float-right" data-toggle="modal"
+						data-target="#addModal"><i class="mdi
+						mdi-account-plus"></i> Add Apply Employee</button>
+					<!-- <button class="btn btn-success float-right">+ Add Apply Employee</button> -->
+					<tbody>
+						<tr>
+							<td>Company</td>
+							<td>: <span th:text="${vacancy.mitra.name}"></span></td>
+						</tr>
+						<tr>
+							<td>Address</td>
+							<td>: <span th:text="${vacancy.address}"></span></td>
+						</tr>
+						<tr>
+							<td>Email</td>
+							<td>: <span th:text="${vacancy.mitra.email}"></span></td>
+						</tr>
+						<tr>
+							<td>Phone Number</td>
+							<td>: <span th:text="${vacancy.mitra.phone}"></span></td>
+						</tr>
+						<tr>
+							<td>Vacancy Start Date</td>
+							<td>: <span th:text="${vacancy.start_date}"></span></td>
+						</tr>
+						<tr>
+							<td>Vacancy End Date</td>
+							<td>: <span th:text="${vacancy.end_date}"></span></td>
+						</tr>
+						<tr>
+							<td>Vacancy Status</td>
+							<td>:
+								<label class="badge badge-danger" th:if="${vacancy.isActive == false}"
+									th:text="${'Unavailable'}">dua</label>
+								<label class="badge badge-success" th:if="${vacancy.isActive == true}"
+									th:text="${'Available'}">tiga</label>
+							</td>
+						</tr>
+					</tbody>
+				</table> <br>
+				<p>Require Position</p>
+				<div class="table-responsive">
+					<table class="table table-bordered table-dark text-white">
+						<tbody>
+							<tr>
+								<th> No </th>
+								<th> Job Position </th>
+								<th> Quota </th>
+							</tr>
+							<div th:each="positionVacancy, i : ${positionVacancy}">
+								<tr>
+									<td th:text="${i.index + 1}"></td>
+									<td th:text="${positionVacancy.position.name}"></td>
+									<td th:text="${positionVacancy.quota}"></td>
+								</tr>
+							</div>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="card mt-4">
+			<div class="card-body">
+				<h5>Job Applicant</h5>
+				<br>
+				<div class="table-responsive">
+					<table id="applyEmployee-table" class="table table-bordered table-striped text-white">
+						<thead>
+							<tr>
+								<th> No </th>
+								<th> Name </th>
+								<th> Email </th>
+								<th> Phone </th>
+								<th> Position </th>
+								<th> Apply Date </th>
+								<th> Status </th>
+							</tr>
+						</thead>
+						<tbody>
+							<div th:each="jobEmployee, i : ${jobEmployee}">
+								<tr>
+									<th th:text="${i.index + 1}"></th>
+									<th th:text="${jobEmployee.employee.name}"></th>
+									<td th:text="${jobEmployee.employee.email}"></td>
+									<td th:text="${jobEmployee.employee.phone}"></td>
+									<td th:text="${jobEmployee.employee.position.name}"></td>
+									<td th:text="${jobEmployee.apply_date}"></td>
+									<td>
+										<label class="badge badge-warning" th:if="${jobEmployee.status.id == 1 }"
+											th:text="${jobEmployee.status.name}"></label>
+										<label class="badge badge-danger" th:if="${jobEmployee.status.id == 2}"
+											th:text="${jobEmployee.status.name}"></label>
+									</td>
+
+
+								</tr>
+							</div>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section layout:fragment="modal">
+		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="addModalLabel">Add Apply Employee</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/apply-employee/create}" th:method="POST" th:object="${applyEmployee}">
+							<input type="hidden" th:value="${login.id}" name="hr.id">
+							<input type="hidden" th:value="${vacancy.id}" name="vacancy.id">
+							<div class="form-group">
+								<label>Select Employee</label>
+								<select class="form-control text-white" name="employee.id">
+									<option value="0" disabled selected>---Select Employee---</option>
+									<div th:each="employeeFree: ${employeeFree}">
+										<option th:value="${employeeFree.id}"><span
+												th:text="${employeeFree.name}"></span>
+											(<span th:text="${employeeFree.position.name}"></span>)
+										</option>
+									</div>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Interview & Test Date</label>
+								<input type="datetime-local" class="form-control" name="date_test">
+							</div>
+							<div class="form-group">
+								<label>Interview & Test Location</label>
+								<input type="text" class="form-control" name="location_test">
+							</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button id="buttonSubmit" type="submit" class="btn btn-success">Submit</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section layout:fragment="js">
+		<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+		<script>
+			let table = new DataTable('#applyEmployee-table');
+		</script>
+	</section>
+</body>
+
+</html>

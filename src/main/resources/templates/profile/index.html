@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Profile | JobMii</title>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<div class="row">
+			<div class="col-10">
+				<div class="card">
+					<div sec:authorize="hasAnyAuthority('ROLE_EMPLOYEE')">
+						<div class="card-body">
+							<h4 class="card-title">Profile</h4>
+							<p class="card-description"> Harap isi data sesuai field yang tersedia. </p>
+
+							<!-- <p th:text="${employee}"></p> -->
+							<form class="forms-sample" th:action="@{/profile/update}"
+								th:object="${updateEmployeeRequest}" th:method="PUT" enctype="multipart/form-data">
+								<div class="form-group">
+									<label for="exampleInputName1">Name</label>
+									<input type="text" class="form-control text-white" name="name"
+										th:value="${employee.name}" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputCity1">Phone Number</label>
+									<input type="number" class="form-control text-white" th:value="${employee.phone}"
+										name="phone" required>
+								</div>
+								<input type="hidden" th:value="${employee.email}" name="email">
+								<hr>
+								<div class="form-group">
+									<label>CV </label>
+									<div class="input-group col-xs-12">
+										<input type="file" accept=".pdf" class="form-control" name="uploadCv"
+											required><br>
+
+									</div>
+									<small class="form-text text-muted">
+										Uploaded files must be in .pdf format.
+									</small><br>
+									<p>Recent CV : <span th:text="${employee.cv}"></span></p>
+								</div> <br>
+								<button type="submit" class="btn btn-success mr-2">Save</button>
+
+							</form>
+						</div>
+					</div>
+					<div sec:authorize="hasAnyAuthority('ROLE_CLIENT')">
+						<div class="card-body">
+							<!-- <p th:text="${client}"></p> -->
+							<h4 class="card-title">Company Profile</h4><br>
+							<!-- <p class="card-description"> Harap isi data sesuai field yang tersedia. </p> -->
+
+							<!-- <p th:text="${employee}"></p> -->
+							<form class="forms-sample" th:action="@{/profile/update-client}" th:object="${client}"
+								th:method="PUT">
+								<div class="form-group">
+									<label for="exampleInputName1">Company Name</label>
+									<input type="text" class="form-control text-white" name="name"
+										th:value="${client.name}" required>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputCity1">Company Phone Number</label>
+									<input type="number" class="form-control text-white" th:value="${client.phone}"
+										name="phone" required>
+								</div>
+								<input type="hidden" th:value="${client.id}" name="id">
+								<input type="hidden" th:value="${client.email}" name="email">
+
+								<div class="form-group">
+									<label>About Company </label>
+									<div class="input-group col-xs-12">
+										<textarea class="form-control text-white" cols="30" rows="10" name="description"
+											th:text="${client.description}"></textarea>
+
+									</div><br>
+
+								</div> <br>
+								<button type="submit" class="btn btn-success mr-2">Save</button>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section layout:fragment="modal"></section>
+	<section layout:fragment="js">
+
+	</section>
+
+
+</body>
+
+</html>

@@ -20,8 +20,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.jobmii.clientApp.JobmiiClientApp.models.dto.request.LoginRequest;
 import com.jobmii.clientApp.JobmiiClientApp.models.dto.response.LoginResponse;
+import lombok.NoArgsConstructor;
 
 @Service
+@NoArgsConstructor
 public class LoginService {
 	private RestTemplate restTemplate;
 

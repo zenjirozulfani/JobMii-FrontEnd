@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Detail Apply Employee | JobMii</title>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<!-- <p th:text="${applyEmployee}"></p> -->
+		<!-- <p th:text="${history}"></p> -->
+		<div class="page-header">
+			<h3 class="page-title"> Detail </h3>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/apply-employee}">Apply Job</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Detail Apply Employee</li>
+				</ol>
+			</nav>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<table class="table table-borderless" style="width: 20%;">
+					<h4 th:text="${applyEmployee.vacancy.title}"></h4>
+					<tbody>
+						<tr>
+							<td>Company</td>
+							<td>: <span th:text="${applyEmployee.vacancy.mitra.name}"></span></td>
+						</tr>
+						<tr>
+							<td>Email</td>
+							<td>: <span th:text="${applyEmployee.vacancy.mitra.email}"></span></td>
+						</tr>
+						<tr>
+							<td>Address</td>
+							<td>: <span th:text="${applyEmployee.vacancy.address}"></span></td>
+						</tr>
+						<tr>
+							<td>Apply Date</td>
+							<td>: <span th:text="${applyEmployee.apply_date}"></span> WIB</td>
+						</tr>
+						<tr>
+							<td>Apply By</td>
+							<td class="text-uppercase">: <span th:text="${applyEmployee.hr.username}"></span></td>
+						</tr>
+						<tr>
+							<td>Interview & Test</td>
+							<td>: <mark th:text="${applyEmployee.location_test}"></mark>, <mark
+									th:text="${applyEmployee.date_test}"></mark> </td>
+						</tr>
+						<tr>
+							<td>Status</td>
+							<td>:
+								<!-- <span th:text="${applyEmployee.status.name}"></span> -->
+								<label class="badge badge-warning" th:if="${applyEmployee.status.id == 1 }"
+									th:text="${applyEmployee.status.name}"></label>
+								<label class="badge badge-danger" th:if="${applyEmployee.status.id == 2}"
+									th:text="${applyEmployee.status.name}">dua</label>
+								<label class="badge badge-success" th:if="${applyEmployee.status.id == 3}"
+									th:text="${applyEmployee.status.name }">tiga</label>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<div class="table-responsive">
+					<table class="table table-bordered table-dark">
+						<thead>
+							<tr>
+								<th> No </th>
+								<th> Updated Date </th>
+								<th> Status </th>
+							</tr>
+						</thead>
+						<tbody>
+							<div th:each="history, i : ${history}">
+								<tr>
+									<td th:text="${i.index + 1}"></td>
+									<td th:text="${history.update_date}"></td>
+									<td>
+										<label class="badge badge-warning" th:if="${history.status.id == 1 }"
+											th:text="${history.status.name}"></label>
+										<label class="badge badge-danger" th:if="${history.status.id == 2}"
+											th:text="${history.status.name}">dua</label>
+										<label class="badge badge-success" th:if="${history.status.id == 3}"
+											th:text="${history.status.name }">tiga</label>
+									</td>
+								</tr>
+							</div>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+	<section layout:fragment="modal"></section>
+	<section layout:fragment="js"></section>
+</body>
+
+</html>

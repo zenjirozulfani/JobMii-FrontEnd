@@ -10,198 +10,343 @@
 <body>
 
 	<section layout:fragment="content">
-		<div class="content-wrapper">
-			<div class="row">
-				<div class="col-sm-4 grid-margin">
-					<div class="card">
-						<div class="card-body">
-							<h5>Employee</h5>
-							<div class="row">
-								<div class="col-8 col-sm-12 col-xl-8 my-auto">
-									<div class="d-flex d-sm-block d-md-flex align-items-center">
-										<h2 class="mb-0">250</h2>
+		<div sec:authorize="hasAnyAuthority('ROLE_HR')">
+			<div class="content-wrapper">
+				<div class="row">
+					<div class="col-sm-4 grid-margin">
+						<div class="card">
+							<div class="card-body">
+								<h5>Employee</h5>
+								<div class="row">
+									<div class="col-8 col-sm-12 col-xl-8 my-auto">
+										<div class="d-flex d-sm-block d-md-flex align-items-center">
+											<h2 class="mb-0" th:text="${countEmployee}">-count employee-</h2>
+
+										</div>
+										<!-- <h6 class="text-muted font-weight-normal">11.38% Since last month</h6> -->
+										<a th:href="@{/list-employee}" class="text-muted font-weight-normal">Click here
+											to see
+											details...</a>
 									</div>
-									<!-- <h6 class="text-muted font-weight-normal">11.38% Since last month</h6> -->
-									<a href="" class="text-muted font-weight-normal">Click here to see
-										details...</a>
+									<div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+										<i class="icon-lg mdi mdi-account-multiple text-primary ml-auto"></i>
+									</div>
 								</div>
-								<div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-									<i class="icon-lg mdi mdi-account-multiple text-primary ml-auto"></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 grid-margin">
+						<div class="card">
+							<div class="card-body">
+								<h5>Mitra</h5>
+								<div class="row">
+									<div class="col-8 col-sm-12 col-xl-8 my-auto">
+										<div class="d-flex d-sm-block d-md-flex align-items-center">
+											<h2 class="mb-0" th:text="${countClient}">50</h2>
+										</div>
+										<!-- <h6 class="text-muted font-weight-normal"> 9.61% Since last month</h6> -->
+										<a th:href="@{/mitra}" class="text-muted font-weight-normal">Click here to see
+											details...</a>
+									</div>
+									<div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+										<i class="icon-lg mdi mdi-home-modern text-info ml-auto"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 grid-margin">
+						<div class="card">
+							<div class="card-body">
+								<h5>Vacancy</h5>
+								<div class="row">
+									<div class="col-8 col-sm-12 col-xl-8 my-auto">
+										<div class="d-flex d-sm-block d-md-flex align-items-center">
+											<h2 class="mb-0" th:text="${countVacancy}">39</h2>
+											<!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.1% </p> -->
+										</div>
+										<!-- <h6 class="text-muted font-weight-normal">2.27% Since last month</h6> -->
+										<a th:href="@{/vacancy}" class="text-muted font-weight-normal">Click here to see
+											details...</a>
+									</div>
+									<div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+										<i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4 grid-margin">
-					<div class="card">
-						<div class="card-body">
-							<h5>Mitra</h5>
-							<div class="row">
-								<div class="col-8 col-sm-12 col-xl-8 my-auto">
-									<div class="d-flex d-sm-block d-md-flex align-items-center">
-										<h2 class="mb-0">50</h2>
+				<div class="row">
+					<div class="col-md-4 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Employee Placement</h4>
+								<canvas id="transaction-history" class="transaction-chart"></canvas>
+								<div
+									class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+									<div class="text-md-center text-xl-left">
+										<h6 class="mb-1">Assigned Employees</h6>
+										<!-- <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p> -->
 									</div>
-									<!-- <h6 class="text-muted font-weight-normal"> 9.61% Since last month</h6> -->
-									<a href="" class="text-muted font-weight-normal">Click here to see
-										details...</a>
-								</div>
-								<div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-									<i class="icon-lg mdi mdi-home-modern text-info ml-auto"></i>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4 grid-margin">
-					<div class="card">
-						<div class="card-body">
-							<h5>Vacancy</h5>
-							<div class="row">
-								<div class="col-8 col-sm-12 col-xl-8 my-auto">
-									<div class="d-flex d-sm-block d-md-flex align-items-center">
-										<h2 class="mb-0">39</h2>
-										<!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.1% </p> -->
+									<div
+										class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+										<h6 id="countEmployeeJob" class="font-weight-bold mb-0" th:text="${countJob}">50
+										</h6>
 									</div>
-									<!-- <h6 class="text-muted font-weight-normal">2.27% Since last month</h6> -->
-									<a href="" class="text-muted font-weight-normal">Click here to see
-										details...</a>
-								</div>
-								<div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-									<i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 grid-margin stretch-card">
-					<div class="card">
-						<div class="card-body">
-							<h4 class="card-title">Employee Placement</h4>
-							<canvas id="transaction-history" class="transaction-chart"></canvas>
-							<div
-								class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-								<div class="text-md-center text-xl-left">
-									<h6 class="mb-1">Assigned Employees</h6>
-									<!-- <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p> -->
 								</div>
 								<div
-									class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-									<h6 class="font-weight-bold mb-0">50</h6>
-								</div>
-							</div>
-							<div
-								class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-								<div class="text-md-center text-xl-left">
-									<h6 class="mb-1">Non-placed Employees</h6>
-									<!-- <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p> -->
-								</div>
-								<div
-									class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-									<h6 class="font-weight-bold mb-0">200</h6>
+									class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+									<div class="text-md-center text-xl-left">
+										<h6 class="mb-1">Non-placed Employees</h6>
+										<!-- <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p> -->
+									</div>
+									<div
+										class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+										<h6 class="font-weight-bold mb-0" th:text="${countNoJob}">
+											200</h6>
+									</div>
+									<input type="hidden" id="totalEmployee" th:value="${countEmployee}">
+									<input type="hidden" id="doneEmployee" th:value="${countJob}">
+									<input type="hidden" id="noJobEmployee" th:value="${countNoJob}">
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-8 grid-margin stretch-card">
-					<div class="card">
-						<div class="card-body">
-							<div class="d-flex flex-row justify-content-between">
-								<h4 class="card-title mb-1">Recent Vacancies</h4>
-								<p class="text-muted mb-1">End date</p>
-							</div>
-							<div class="row">
-								<div class="col-12">
-									<div class="preview-list">
-										<div class="preview-item border-bottom">
-											<div class="preview-thumbnail">
-												<div class="preview-icon bg-primary">
-													<i class="mdi mdi-file-document"></i>
+					<div class="col-md-8 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex flex-row justify-content-between">
+									<h4 class="card-title mb-1">Recent Vacancies</h4>
+									<p class="text-muted mb-1">End date</p>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="preview-list">
+											<div class="preview-item border-bottom">
+												<div class="preview-thumbnail">
+													<div class="preview-icon bg-primary">
+														<i class="mdi mdi-file-document"></i>
+													</div>
+												</div>
+												<div class="preview-item-content d-sm-flex flex-grow">
+													<div class="flex-grow">
+														<h6 class="preview-subject">Data Science</h6>
+														<p class="text-muted mb-0">PT Mencari Cinta Sejati</p>
+													</div>
+													<div class="mr-auto text-sm-right pt-2 pt-sm-0">
+														<!-- <p class="text-muted">15 minutes ago</p> -->
+														<p class="text-muted">2023-05-16 00:00:00 WIB </p>
+													</div>
 												</div>
 											</div>
-											<div class="preview-item-content d-sm-flex flex-grow">
-												<div class="flex-grow">
-													<h6 class="preview-subject">Data Science</h6>
-													<p class="text-muted mb-0">PT Mencari Cinta Sejati</p>
-												</div>
-												<div class="mr-auto text-sm-right pt-2 pt-sm-0">
-													<!-- <p class="text-muted">15 minutes ago</p> -->
-													<p class="text-muted">2023-05-16 00:00:00 WIB </p>
-												</div>
-											</div>
-										</div>
 
-									</div>
-									<div class="preview-list">
-										<div class="preview-item border-bottom">
-											<div class="preview-thumbnail">
-												<div class="preview-icon bg-primary">
-													<i class="mdi mdi-file-document"></i>
-												</div>
-											</div>
-											<div class="preview-item-content d-sm-flex flex-grow">
-												<div class="flex-grow">
-													<h6 class="preview-subject">Front End Developer</h6>
-													<p class="text-muted mb-0">Facebook Inc</p>
-												</div>
-												<div class="mr-auto text-sm-right pt-2 pt-sm-0">
-													<!-- <p class="text-muted">15 minutes ago</p> -->
-													<p class="text-muted">2023-05-17 00:00:00 WIB </p>
-												</div>
-											</div>
 										</div>
+										<div class="preview-list">
+											<div class="preview-item border-bottom">
+												<div class="preview-thumbnail">
+													<div class="preview-icon bg-primary">
+														<i class="mdi mdi-file-document"></i>
+													</div>
+												</div>
+												<div class="preview-item-content d-sm-flex flex-grow">
+													<div class="flex-grow">
+														<h6 class="preview-subject">Front End Developer</h6>
+														<p class="text-muted mb-0">Facebook Inc</p>
+													</div>
+													<div class="mr-auto text-sm-right pt-2 pt-sm-0">
+														<!-- <p class="text-muted">15 minutes ago</p> -->
+														<p class="text-muted">2023-05-17 00:00:00 WIB </p>
+													</div>
+												</div>
+											</div>
 
-									</div>
-									<div class="preview-list">
-										<div class="preview-item border-bottom">
-											<div class="preview-thumbnail">
-												<div class="preview-icon bg-primary">
-													<i class="mdi mdi-file-document"></i>
-												</div>
-											</div>
-											<div class="preview-item-content d-sm-flex flex-grow">
-												<div class="flex-grow">
-													<h6 class="preview-subject">Back End Developer</h6>
-													<p class="text-muted mb-0">PT Jaya Agung</p>
-												</div>
-												<div class="mr-auto text-sm-right pt-2 pt-sm-0">
-													<!-- <p class="text-muted">15 minutes ago</p> -->
-													<p class="text-muted">2023-05-18 00:00:00 WIB </p>
-												</div>
-											</div>
 										</div>
+										<div class="preview-list">
+											<div class="preview-item border-bottom">
+												<div class="preview-thumbnail">
+													<div class="preview-icon bg-primary">
+														<i class="mdi mdi-file-document"></i>
+													</div>
+												</div>
+												<div class="preview-item-content d-sm-flex flex-grow">
+													<div class="flex-grow">
+														<h6 class="preview-subject">Back End Developer</h6>
+														<p class="text-muted mb-0">PT Jaya Agung</p>
+													</div>
+													<div class="mr-auto text-sm-right pt-2 pt-sm-0">
+														<!-- <p class="text-muted">15 minutes ago</p> -->
+														<p class="text-muted">2023-05-18 00:00:00 WIB </p>
+													</div>
+												</div>
+											</div>
 
-									</div>
-									<div class="preview-list">
-										<div class="preview-item border-bottom">
-											<div class="preview-thumbnail">
-												<div class="preview-icon bg-primary">
-													<i class="mdi mdi-file-document"></i>
-												</div>
-											</div>
-											<div class="preview-item-content d-sm-flex flex-grow">
-												<div class="flex-grow">
-													<h6 class="preview-subject">IT Support</h6>
-													<p class="text-muted mb-0">META Inc</p>
-												</div>
-												<div class="mr-auto text-sm-right pt-2 pt-sm-0">
-													<!-- <p class="text-muted">15 minutes ago</p> -->
-													<p class="text-muted">2023-05-21 00:00:00 WIB </p>
-												</div>
-											</div>
 										</div>
+										<div class="preview-list">
+											<div class="preview-item border-bottom">
+												<div class="preview-thumbnail">
+													<div class="preview-icon bg-primary">
+														<i class="mdi mdi-file-document"></i>
+													</div>
+												</div>
+												<div class="preview-item-content d-sm-flex flex-grow">
+													<div class="flex-grow">
+														<h6 class="preview-subject">IT Support</h6>
+														<p class="text-muted mb-0">META Inc</p>
+													</div>
+													<div class="mr-auto text-sm-right pt-2 pt-sm-0">
+														<!-- <p class="text-muted">15 minutes ago</p> -->
+														<p class="text-muted">2023-05-21 00:00:00 WIB </p>
+													</div>
+												</div>
+											</div>
 
+										</div>
 									</div>
 								</div>
+								<a th:href="@{/vacancy}" class="text-muted m-2 float-right">Click here to see all
+									vacancies...</a>
 							</div>
-							<a href="" class="text-muted m-2 float-right">Click here to see all vacancies...</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div sec:authorize="hasAnyAuthority('ROLE_EMPLOYEE')">
+			<div class="content-wrapper">
+				<div class="page-header">
+					<h3 class="page-title"> Dashboard </h3>
+				</div>
+				<div class="row">
+					<div class="col-8">
+						<div class="card">
+							<div class="card-body">
+								<!-- <h4 class="card-title">Blockquotes</h4> -->
+
+								<h4>Selemat Datang <span th:text="${employee.name}"></span></h4>
+
+								<p class="card-description"> Website ini digunakan sebagai informasi penempatan kerja
+									saudara,
+									perhatikan langkah berikut: </p>
+								<ol>
+									<li>Lengkapi data diri anda termasuk CV pada menu <a th:href="@{/profile}">Setting
+											Profile</a> . </li>
+									<li>Upload CV berformat .pdf dan pastikan CV sesuai panduan.</li>
+									<li>Selanjutnya HR akan melakukan mapping posisi pekerjaan saudara.</li>
+									<li>HR akan mendaftarkan pekerjaan ke mitra sesuai posisi yang sesuai dengan
+										saudara.
+									</li>
+									<li>HR akan mengirimkan jadwal interview dan test pada email saudara.</li>
+									<li>Informasi mengenai status pekerjaan yang dilamar dapat dilihat pada menu
+										<a th:href="@{/apply-employee}">Apply Job</a> .
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Profile</h4>
+								<div class="d-flex">
+									<div class="preview-list">
+										<div class="preview-item p-0">
+											<div class="preview-thumbnail">
+												<img src="https://www.its.ac.id/aktuaria/wp-content/uploads/sites/100/2018/03/user.png"
+													class="rounded-circle" alt="">
+											</div>
+											<div class="preview-item-content d-flex flex-grow">
+												<div class="flex-grow">
+													<div class="d-flex d-md-block d-xl-flex justify-content-between">
+														<h6 class="preview-subject text-capitalize"
+															th:text="${employee.name}"></h6>
+													</div>
+													<p class="" th:text="${employee.email}"></p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> <br>
+								<p>Posisi :
+									<span
+										th:text="${employee.position} ? ${employee.position.name} : 'Belum Mapping'"></span>
+
+								</p>
+								<p>Status :
+									<!-- <span th:text="${employee.status} ? 'Sudah Penempatan' : 'Belum Penempatan'"></span> -->
+									<label class="badge badge-success" th:if="${employee.status == true }">Sudah
+										Penempatan</label>
+									<label class="badge badge-danger" th:if="${employee.status == false}">Belum
+										Penempatan</label>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div sec:authorize="hasAnyAuthority('ROLE_CLIENT')">
+			<div class="content-wrapper">
+				<div class="page-header">
+					<h3 class="page-title"> Dashboard </h3>
+				</div>
+				<div class="row">
+					<div class="col-8">
+						<div class="card">
+							<div class="card-body">
+								<!-- <h4 class="card-title">Blockquotes</h4> -->
+
+								<h4>Selemat Datang Mitra MII, <span th:text="${employee.name}"></span></h4>
+
+								<p class="card-description"> Website ini digunakan sebagai informasi penempatan kerja
+									anggota PT. Mitra Integrasi Informatika,
+									perhatikan langkah berikut: </p>
+								<ol>
+									<li>Lengkapi data perusahaan pada menu <a th:href="@{/profile}">Setting
+											Profile</a> . </li>
+									<li>Untuk membuat lowongan baru plih menu <a th:href="@{/}">My Vacancy
+										</a>.</li>
+									<li>Selanjutnya atur posisi apa saja yang dibutuhkan beserta kuota pada detail
+										vacancy.</li>
+									<li>HR akan mendaftarkan karyawan MII ke lowongan mitra sesuai posisi yang
+										dibutuhkan.
+									</li>
+									<li>HR akan mengirimkan jadwal interview dan test pada email mitra.</li>
+									<li>Informasi mengenai status pekerja yang melamar dapat dilihat pada menu
+										<a th:href="@{/}">Employee </a> .
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="card">
+							<div class="card-body">
+								<!-- <p th:text="${employee}"></p> -->
+								<h5>My Vacancy</h5>
+								<div class="row">
+									<div class="col-8 col-sm-12 col-xl-8 my-auto">
+										<div class="d-flex d-sm-block d-md-flex align-items-center">
+											<h2 class="mb-0" th:text="${countMyVacancy}">39</h2>
+											<!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.1% </p> -->
+										</div>
+										<!-- <h6 class="text-muted font-weight-normal">2.27% Since last month</h6> -->
+										<a th:href="@{/vacancy/my-vacancy}" class="text-muted font-weight-normal">Click
+											here to see
+											details...</a>
+									</div>
+									<div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+										<i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</section>
 
 

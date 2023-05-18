@@ -67,11 +67,13 @@
         }
       });
     }
+    var belum = document.getElementById("noJobEmployee").value;
+    var sudah = document.getElementById("doneEmployee").value;
     if ($("#transaction-history").length) {
       var areaData = {
         labels: ["Not yet", "Already"],
         datasets: [{
-          data: [200, 50],
+          data: [belum, sudah],
           backgroundColor: [
             "#111111", "#00d25b"
           ]
@@ -107,7 +109,7 @@
           ctx.textBaseline = "middle";
           ctx.fillStyle = "#ffffff";
 
-          var text = "250",
+          var text = "Total",
             textX = Math.round((width - ctx.measureText(text).width) / 2),
             textY = height / 2.4;
 
@@ -120,7 +122,7 @@
           ctx.textBaseline = "middle";
           ctx.fillStyle = "#6c7293";
 
-          var texts = "Total",
+          var texts = document.getElementById("totalEmployee").value,
             textsX = Math.round((width - ctx.measureText(text).width) / 1.93),
             textsY = height / 1.7;
 
@@ -136,6 +138,7 @@
         plugins: transactionhistoryChartPlugins
       });
     }
+
     if ($("#transaction-history-arabic").length) {
       var areaData = {
         labels: ["Paypal", "Stripe", "Cash"],

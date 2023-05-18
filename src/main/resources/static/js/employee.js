@@ -17,6 +17,9 @@ $(document).ready(function () {
 				data: 'name'
 			},
 			{
+				data: 'email'
+			},
+			{
 				data: 'phone'
 			},
 			{
@@ -46,20 +49,21 @@ $(document).ready(function () {
 				render: function (data, type, row) {
 					// Lakukan operasi kondisi sesuai kebutuhan
 					if (data === false) {
-						return 'Belum Penempatan';
+						return '<label class="badge badge-danger"> Belum Penempatan </label>';
 					} else {
-						return 'Sudah Penempatan';
+						return '<label class="badge badge-success"> Sudah Penempatan </label>';
 					}
 				}
-			},
-			{
-				"data": null,
-				render: function (data, row, type, meta) {
-					return `
-                    <button type="button" class="btn btn-primary px-4 mr-3"> Detail <i class="bi bi-trash"> </i></button > 
-                    `;
-				}
 			}
+			// ,
+			// {
+			// 	"data": null,
+			// 	render: function (data, row, type, meta) {
+			// 		return `
+			//         <button type="button" class="btn btn-primary px-4 mr-3"> Detail <i class="bi bi-trash"> </i></button > 
+			//         `;
+			// 	}
+			// }
 
 		]
 	});

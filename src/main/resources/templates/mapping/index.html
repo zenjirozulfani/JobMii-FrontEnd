@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mapping Employee | JobMii</title>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">List Mapping Employee</h4>
+						<p class="card-description"> Tabel berikut berisi employee yang belum dimapping.</p>
+						<!-- <p th:text="${employees}"></p> -->
+						<div class="table-responsive">
+							<table id="mapping-table" class="table table-bordered table-striped text-white">
+								<thead>
+									<tr>
+										<th> No </th>
+										<th> Name </th>
+										<th> Phone </th>
+										<th> CV </th>
+										<th> Action </th>
+									</tr>
+								</thead>
+								<tbody>
+									<div th:each="employees, i : ${employees}">
+										<tr>
+											<th th:text="${i.index + 1}"></th>
+											<th th:text="${employees.name}"></th>
+											<td th:text="${employees.phone}"></td>
+											<td>
+												<span th:if="${employees.cv} == null">CV Kosong</span>
+												<span th:else th:text="${employees.cv}"></span>
+											</td>
+
+											<td class="d-flex justify-content-center">
+												<a th:href="@{/mapping/employee/{id} (id=${employees.id})}"
+													class="btn btn-primary px-4 mr-3">Mapping</a>
+											</td>
+
+										</tr>
+									</div>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section layout:fragment="js">
+		<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+		<!-- <script th:src="@{/js/mapping.js}"></script> -->
+		<script>
+			let table = new DataTable('#mapping-table');
+		</script>
+	</section>
+</body>
+
+</html>

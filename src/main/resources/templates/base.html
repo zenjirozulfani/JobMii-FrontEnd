@@ -9,6 +9,7 @@
 	<link rel="stylesheet" th:href="@{/css/vendor.bundle.base.css}">
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+
 	<!-- <section layout:fragment="css"></section> -->
 </head>
 
@@ -53,100 +54,149 @@
 						<span class="menu-title">Dashboard</span>
 					</a>
 				</li>
-				<li class="nav-item menu-items">
-					<a class="nav-link" data-toggle="collapse" href="#employee" aria-expanded="false"
-						aria-controls="employee">
-						<span class="menu-icon">
-							<i class="mdi mdi-account-multiple"></i>
-						</span>
-						<span class="menu-title">Employee</span>
-						<i class="menu-arrow"></i>
-					</a>
-					<div class="collapse" id="employee">
-						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"> <a class="nav-link" th:href="@{/employee}">
-									<span class="menu-icon">
-										<i class="mdi mdi-format-list-bulleted-type"></i>
-									</span>
-									List Employee
-								</a></li>
-							<li class="nav-item"> <a class="nav-link" th:href="@{/employee/create}">
-									<span class="menu-icon">
-										<i class="mdi mdi-account-plus"></i>
-									</span>
-									Add New Employee
-								</a></li>
-						</ul>
-					</div>
-				</li>
-				<li class="nav-item menu-items">
-					<a class="nav-link" th:href="@{/mitra}">
-						<span class="menu-icon">
-							<i class="mdi mdi-home-modern text-secondary"></i>
-						</span>
-						<span class="menu-title">Mitra</span>
-					</a>
-				</li>
-				<li class="nav-item menu-items">
-					<a class="nav-link" href="">
-						<span class="menu-icon">
-							<i class="mdi mdi-account-star"></i>
-						</span>
-						<span class="menu-title">HR</span>
-					</a>
-				</li>
+				<div sec:authorize="hasAnyAuthority('ROLE_HR')">
+					<li class="nav-item menu-items">
+						<a class="nav-link" data-toggle="collapse" href="#employee" aria-expanded="false"
+							aria-controls="employee">
+							<span class="menu-icon">
+								<i class="mdi mdi-account-multiple"></i>
+							</span>
+							<span class="menu-title">Employee</span>
+							<i class="menu-arrow"></i>
+						</a>
+						<div class="collapse" id="employee">
+							<ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" th:href="@{/list-employee}">
+										<span class="menu-icon">
+											<i class="mdi mdi-format-list-bulleted-type"></i>
+										</span>
+										List Employee
+									</a></li>
+								<li class="nav-item"> <a class="nav-link" th:href="@{/employee/create}">
+										<span class="menu-icon">
+											<i class="mdi mdi-account-plus"></i>
+										</span>
+										Add New Employee
+									</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item menu-items">
+						<a class="nav-link" th:href="@{/mitra}">
+							<span class="menu-icon">
+								<i class="mdi mdi-home-modern text-secondary"></i>
+							</span>
+							<span class="menu-title">Mitra</span>
+						</a>
+					</li>
+					<li class="nav-item menu-items">
+						<a class="nav-link" th:href="@{/list-hr}">
+							<span class="menu-icon">
+								<i class="mdi mdi-account-star"></i>
+							</span>
+							<span class="menu-title">HR</span>
+						</a>
+					</li>
+					<hr>
+					<li class="nav-item menu-items">
+						<a class="nav-link" th:href="@{/mapping}">
+							<span class="menu-icon">
+								<i class="mdi mdi-file-check"></i>
+							</span>
+							<span class="menu-title">Mapping Employee</span>
+						</a>
+					</li>
+					<li class="nav-item menu-items">
+						<a class="nav-link" th:href="@{/vacancy}">
+							<span class="menu-icon">
+								<i class="mdi mdi-table-edit"></i>
+							</span>
+							<span class="menu-title">Vacancy</span>
+						</a>
+					</li>
+					<li class="nav-item menu-items">
+						<a class="nav-link" data-toggle="collapse" href="#applyEmployee" aria-expanded="false"
+							aria-controls="applyEmployee">
+							<span class="menu-icon">
+								<i class="mdi mdi-format-list-bulleted-type text-success"></i>
+							</span>
+							<span class="menu-title">Apply Employee</span>
+							<i class="menu-arrow"></i>
+						</a>
+						<div class="collapse" id="applyEmployee">
+							<ul class="nav flex-column sub-menu">
+								<li class="nav-item"> <a class="nav-link" th:href="@{/apply}">
+										<span class="menu-icon">
+											<i class="mdi mdi-format-list-bulleted-type text-success"></i>
+										</span>
+										List
+									</a></li>
+								<li class="nav-item"> <a class="nav-link" th:href="@{/history}">
+										<span class="menu-icon">
+											<i class="mdi mdi-history text-success"></i>
+										</span>
+										History
+									</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item menu-items">
+						<a class="nav-link" th:href="@{/position}">
+							<span class="menu-icon">
+								<i class="mdi mdi-laptop-mac"></i>
+							</span>
+							<span class="menu-title">Job Position</span>
+						</a>
+					</li>
+				</div>
+				<div sec:authorize="hasAnyAuthority('ROLE_EMPLOYEE')">
+					<li class="nav-item menu-items">
+						<!-- <a class="nav-link" th:href="@{/profile/{@id} (id=${user.id})}"> -->
+						<a class="nav-link" th:href="@{/profile}">
+							<span class="menu-icon">
+								<i class="mdi mdi-account-settings"></i>
+							</span>
+							<span class="menu-title">Setting Profile</span>
+						</a>
+					</li>
+					<hr>
+					<li class="nav-item menu-items">
+						<a class="nav-link" th:href="@{/apply-employee}">
+							<span class="menu-icon">
+								<i class="mdi mdi-table-edit"></i>
+							</span>
+							<span class="menu-title">Apply Job</span>
+						</a>
+					</li>
+					<!-- <li class="nav-item"> <a class="nav-link" href="">
+							<span class="menu-icon">
+								<i class="mdi mdi-history text-success"></i>
+							</span>
+							History
+						</a></li> -->
+				</div>
+				<div sec:authorize="hasAnyAuthority('ROLE_CLIENT')">
+					<li class="nav-item menu-items">
+						<!-- <a class="nav-link" th:href="@{/profile/{@id} (id=${user.id})}"> -->
+						<a class="nav-link" th:href="@{/profile}">
+							<span class="menu-icon">
+								<i class="mdi mdi-account-settings"></i>
+							</span>
+							<span class="menu-title">Setting Profile</span>
+						</a>
+					</li>
+					<hr>
+					<li class="nav-item menu-items">
+						<a class="nav-link" th:href="@{/vacancy/my-vacancy}">
+							<span class="menu-icon">
+								<i class="mdi mdi-table-edit"></i>
+							</span>
+							<span class="menu-title">My Vacancy</span>
+						</a>
+					</li>
+				</div>
 				<hr>
-				<li class="nav-item menu-items">
-					<a class="nav-link" href="">
-						<span class="menu-icon">
-							<i class="mdi mdi-file-check"></i>
-						</span>
-						<span class="menu-title">Mapping Employee</span>
-					</a>
-				</li>
-				<li class="nav-item menu-items">
-					<a class="nav-link" href="">
-						<span class="menu-icon">
-							<i class="mdi mdi-table-edit"></i>
-						</span>
-						<span class="menu-title">Vacancy</span>
-					</a>
-				</li>
-				<li class="nav-item menu-items">
-					<a class="nav-link" data-toggle="collapse" href="#applyEmployee" aria-expanded="false"
-						aria-controls="applyEmployee">
-						<span class="menu-icon">
-							<i class="mdi mdi-format-list-bulleted-type text-success"></i>
-						</span>
-						<span class="menu-title">Apply Employee</span>
-						<i class="menu-arrow"></i>
-					</a>
-					<div class="collapse" id="applyEmployee">
-						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"> <a class="nav-link" href="">
-									<span class="menu-icon">
-										<i class="mdi mdi-format-list-bulleted-type text-success"></i>
-									</span>
-									List
-								</a></li>
-							<li class="nav-item"> <a class="nav-link" href="">
-									<span class="menu-icon">
-										<i class="mdi mdi-history text-success"></i>
-									</span>
-									History
-								</a></li>
-						</ul>
-					</div>
-				</li>
-				<li class="nav-item menu-items">
-					<a class="nav-link" href="">
-						<span class="menu-icon">
-							<i class="mdi mdi-laptop-mac"></i>
-						</span>
-						<span class="menu-title">Job Position</span>
-					</a>
-				</li>
-				<hr>
+
 				<li class="nav-item menu-items">
 					<a class="nav-link" href="" data-toggle="modal" data-target="#logoutModal">
 						<span class="menu-icon">
@@ -231,6 +281,8 @@
 	<script th:src="@{/js/hoverable-collapse.js}"></script>
 	<script th:src="@{/js/misc.js}"></script>
 	<script th:src="@{/js/settings.js}"></script>
+	<script th:src="@{/js/CSRF.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<section layout:fragment="js"></section>
 </body>
 

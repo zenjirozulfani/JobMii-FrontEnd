@@ -32,6 +32,11 @@ public class ApiClientController {
 		return clientService.getAll();
 	}
 
+	@GetMapping("/{id}")
+	public Client getById(@PathVariable Integer id) {
+		return clientService.getById(id);
+	}
+
 	@GetMapping("/username/{username}")
 	public Map<String, Boolean> getByUsername(@PathVariable String username) {
 		return employeeService.checkUsername(username);

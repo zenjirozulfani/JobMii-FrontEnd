@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mapping Employee | JobMii</title>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<div class="page-header">
+			<h3 class="page-title"> Mapping Employee </h3>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/mapping}">Mapping</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Mapping Employee</li>
+				</ol>
+			</nav>
+		</div>
+		<div class="row">
+			<div class="col-8">
+				<div class="card">
+					<!-- <p th:text="${employeeData}"></p> -->
+					<div class="card-body">
+						<h4>CV Employee <span class="text-capitalize" th:text="${employeeData.name}"></span> </h4>
+						<br>
+						<iframe type="application/pdf" th:src="${'/pdf/' + employeeData.cv}" width="600"
+							height="450"></iframe>
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="card">
+					<div class="card-body">
+						<h5>Form Mapping Position</h5>
+						<br>
+						<form th:action="@{/mapping/employee}" th:method="PUT" th:object="${employee}">
+							<input type="hidden" th:value="${employeeData.id}" name="id">
+							<input type="hidden" th:value="${employeeData.name}" name="name">
+							<input type="hidden" th:value="${employeeData.email}" name="email">
+							<input type="hidden" th:value="${employeeData.phone}" name="phone">
+							<input type="hidden" th:value="${employeeData.cv}" name="cv">
+							<!-- <p th:text="${posisi}"></p> -->
+							<div class="form-group">
+								<label for="exampleFormControlSelect2">Position</label>
+								<select class="form-control text-white" name="position.id">
+									<option value="0" disabled selected>---Select Position---</option>
+									<div th:each="posisi : ${posisi}">
+										<option th:value="${posisi.id}"><span th:text="${posisi.name}"></span></option>
+									</div>
+								</select>
+							</div>
+							<button type="submit" class="btn btn-block btn-success">Submit</button>
+						</form>
+
+					</div>
+				</div>
+				<div class="card mt-4">
+					<div class="card-body">
+						<h5>Reject CV Employee</h5><br>
+						<!-- <div class="form-group">
+							<label for="exampleTextarea1">Keterangan</label>
+							<textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+						</div> -->
+						<form th:action="@{/mapping/employee-reject}" th:method="PUT" th:object="${employee}">
+							<input type="hidden" th:value="${employeeData.id}" name="id">
+							<input type="hidden" th:value="${employeeData.name}" name="name">
+							<input type="hidden" th:value="${employeeData.email}" name="email">
+							<input type="hidden" th:value="${employeeData.phone}" name="phone">
+							<button type="submit" class="btn btn-block btn-danger">Reject CV</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<section layout:fragment="modal"></section>
+	<section layout:fragment="js"></section>
+</body>
+
+</html>

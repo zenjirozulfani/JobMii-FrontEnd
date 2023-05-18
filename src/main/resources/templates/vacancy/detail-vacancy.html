@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vacancy Detail | JobMii</title>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<div class="page-header">
+			<h3 class="page-title"> Detail Vacancy <span th:text="${vacancy.title}"></span></h3>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/vacancy/my-vacancy}">My Vacancy</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Detail Vacancy</li>
+				</ol>
+			</nav>
+		</div>
+		<div class="card">
+			<!-- <p th:text="${positionVacancy}"></p> <br> -->
+			<!-- <p th:text="${apBelum}"></p> -->
+			<div class="card-body">
+				<table class="table table-borderless text-white" style="width: 20%;">
+					<h4 th:text="${vacancy.title}"></h4>
+					<button class="btn btn-rounded btn-success float-right" data-toggle="modal"
+						data-target="#addModal"><i class="mdi
+						mdi-plus"></i> Add Position Vacancy</button>
+					<!-- <button class="btn btn-success float-right">+ Add Apply Employee</button> -->
+					<tbody>
+						<tr>
+							<td>Address</td>
+							<td>: <span th:text="${vacancy.address}"></span></td>
+						</tr>
+						<tr>
+							<td>Vacancy Start Date</td>
+							<td>: <span th:text="${vacancy.start_date}"></span></td>
+						</tr>
+						<tr>
+							<td>Vacancy End Date</td>
+							<td>: <span th:text="${vacancy.end_date}"></span></td>
+						</tr>
+
+					</tbody>
+				</table>
+				<br>
+				<p>Require Position</p>
+				<div class="table-responsive">
+					<table id="positionVacancy-table" class="table table-bordered table-dark text-white">
+						<tbody>
+							<tr>
+								<th> No </th>
+								<th> Job Position </th>
+								<th> Quota </th>
+							</tr>
+							<div th:each="positionVacancy, i : ${positionVacancy}">
+								<tr>
+									<td th:text="${i.index + 1}"></td>
+									<td th:text="${positionVacancy.position.name}"></td>
+									<td th:text="${positionVacancy.quota}"></td>
+								</tr>
+							</div>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="card mt-3">
+					<div class="card-body">
+						<div class="table-responsive">
+							<h5>Job Applicant</h5>
+							<table class="table table-bordered table-dark text-white table-responsive-sm mt-2">
+								<tbody>
+									<tr>
+										<th> No </th>
+										<th> Name </th>
+										<th> Email </th>
+										<th> Apply Date </th>
+										<!-- <th> Apply By </th> -->
+										<th> Action </th>
+									</tr>
+									<div th:each="apBelum, i : ${apBelum}">
+										<tr>
+											<td th:text="${i.index + 1}"></td>
+											<td th:text="${apBelum.employee.name}"></td>
+											<td th:text="${apBelum.employee.email}"></td>
+											<td th:text="${apBelum.apply_date}"></td>
+											<td>
+												<form th:action="@{/apply-employee/reject}" th:method="PUT"
+													th:object="${applyEmployee}">
+													<input type="hidden" name="id" th:value="${apBelum.id}">
+													<input type="hidden" name="employee.id"
+														th:value="${apBelum.employee.id}">
+													<input type="hidden" name="hr.id" th:value="${apBelum.hr.id}">
+													<input type="hidden" name="vacancy.id"
+														th:value="${apBelum.vacancy.id}">
+													<input type="hidden" name="apply_date"
+														th:value="${apBelum.apply_date}">
+													<input type="hidden" name="status.id" value="2">
+													<input type="hidden" name="date_test"
+														th:value="${apBelum.date_test}">
+													<input type="hidden" name="location_test"
+														th:value="${apBelum.location_test}">
+													<button type="submit" class="btn btn-danger">Reject</button>
+												</form>
+												<form th:action="@{/apply-employee/accept}" th:method="PUT"
+													th:object="${applyEmployee}">
+													<input type="hidden" name="id" th:value="${apBelum.id}">
+													<input type="hidden" name="employee.id"
+														th:value="${apBelum.employee.id}">
+													<input type="hidden" name="hr.id" th:value="${apBelum.hr.id}">
+													<input type="hidden" name="vacancy.id"
+														th:value="${apBelum.vacancy.id}">
+													<input type="hidden" name="apply_date"
+														th:value="${apBelum.apply_date}">
+													<input type="hidden" name="status.id" value="3">
+													<input type="hidden" name="date_test"
+														th:value="${apBelum.date_test}">
+													<input type="hidden" name="location_test"
+														th:value="${apBelum.location_test}">
+													<button type="submit" class="btn btn-success">Accept</button>
+												</form>
+												<!-- <button type="button" class="btn btn-success">Accept</button> -->
+											</td>
+										</tr>
+									</div>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="card mt-3">
+					<div class="card-body">
+						<div class="table-responsive">
+							<div class="row">
+								<div class="col">
+
+									<!-- <p th:text="${vacancy}"></p> -->
+									<h5>Employee Accepted</h5>
+								</div>
+								<a th:href="@{/vacancy/export/{id} (id=${vacancy.id})}"
+									class="btn btn-outline-warning float-right mb-2">Download Data
+									(.xls)</a>
+							</div>
+							<!-- <p th:text="${link}"></p> -->
+							<table class="table table-bordered table-dark text-white table-responsive-sm mt-2">
+								<tbody>
+									<tr>
+										<th> No </th>
+										<th> Name </th>
+										<th> Email </th>
+										<th> Phone Number </th>
+										<!-- <th> Apply By </th> -->
+										<th> Position </th>
+									</tr>
+									<div th:each="apSudah, i : ${apSudah}">
+										<tr>
+											<td th:text="${i.index + 1}"></td>
+											<td th:text="${apSudah.employee.name}"></td>
+											<td th:text="${apSudah.employee.email}"></td>
+											<td th:text="${apSudah.employee.phone}"></td>
+											<td th:text="${apSudah.employee.position.name}"></td>
+
+										</tr>
+									</div>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<section layout:fragment="modal">
+		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="addModalLabel">Add Apply Employee</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/vacancy/position-vacancy}" th:method="POST" th:object="${positionVacancy}">
+							<input type="hidden" id="create-vacancy-id" th:value="${vacancy.id}" name="vacancyId">
+
+							<div class="form-group">
+								<label>Select Position</label>
+								<select class="form-control text-white" id="create-id-position" name="positionId">
+									<option value="0" disabled selected>---Select Position---</option>
+									<div th:each="position: ${position}">
+										<option th:value="${position.id}"><span th:text="${position.name}"></span>
+										</option>
+									</div>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Quota</label>
+								<input type="number" class="form-control text-white" id="create-quota" name="quota">
+							</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-success">Submit</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section layout:fragment="js">
+		<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+		<script>
+			let table = new DataTable('#apply-table');
+		</script>
+		<!-- <script th:src="@{/js/position-vacancy.js}"></script> -->
+	</section>
+</body>
+
+</html>

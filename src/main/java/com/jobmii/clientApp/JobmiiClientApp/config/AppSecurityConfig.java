@@ -15,7 +15,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 				.authorizeRequests()
 				// .antMatchers("/").hasAnyAuthority("HR", "EMPLOYEE", "CLIENT")
-				.antMatchers("/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
+				.antMatchers("/css/**", "/js/**", "/images/**", "/fonts/**", "/pdf/**").permitAll()
 				.antMatchers("/login").permitAll()
 				.anyRequest()
 				.authenticated()
